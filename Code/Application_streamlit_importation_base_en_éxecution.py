@@ -886,14 +886,14 @@ if "df_incidents" in st.session_state:
             else:
                 st.write("📊 poids selon la durée d'indisponibilité par évenement")
             #st.write("📊 Durée d'indisponibilité par évenement")
-            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "DUREE (en minutes)")
+            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "DUREE (en minutes)",mode_affichage)
         with col[1]:
             if mode_affichage == "Valeurs totales":
                 st.write("📊 Nombre d'indisponibilité par évenement")
             else:
                 st.write("📊 poids selon le nombre d'indisponibilité par évenement")
             #st.write("📊 Nombre d'indisponibilité par évenement")
-            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "NB_OCCURRENCES")
+            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "NB_OCCURRENCES",mode_affichage)
 
         # --- Graphique 2 : évolution dans le temps ---
         # --- Graphique 2 : évolution dans le temps ---
@@ -1053,14 +1053,14 @@ if "df_incidents" in st.session_state:
             else:
                 st.write("📊 poids selon la durée d'indisponibilité par évenement")
             #st.write("📊 Durée d'indisponibilité par évenement")
-            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "DUREE (en minutes)")
+            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "DUREE (en minutes)",mode_affichage)
         with col[1]:
             if mode_affichage == "Valeurs totales":
                 st.write("📊 Nombre d'indisponibilité par évenement")
             else:
                 st.write("📊 poids selon le nombre d'indisponibilité par évenement")
             #st.write("📊 Nombre d'indisponibilité par évenement")
-            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "NB_OCCURRENCES")
+            afficher_duree_indisponibilite(df, "MESSAGE_BRUT", "NB_OCCURRENCES",mode_affichage)
 
         # --- Graphique 2 : évolution dans le temps ---
         # --- Graphique 2 : évolution dans le temps ---
