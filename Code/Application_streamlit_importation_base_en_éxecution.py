@@ -430,19 +430,19 @@ def afficher_duree_indisponibilite_top(df_panne, group_col, value_col,
 
     asc = True if top_ou_flop == "FLOP" else False
     
-    df_grouped = df_grouped.sort_values(by=value_col, ascending=asc).head(5)
+    df_grouped = df_grouped.sort_values(by=value_col, ascending=asc).head(10)
 
     # Affichage en pourcentage ?
     if mode_affichage == "Proportions (%)":
         total = df_grouped1[value_col].sum()
         df_grouped["POURCENTAGE"] = (df_grouped[value_col] / total * 100).round(4)
         x_col = "POURCENTAGE"
-        titre = f"{top_ou_flop} 5 par {group_col.lower()} (en %)"
+        titre = f"{top_ou_flop} 10 par {group_col.lower()} (en %)"
     else:
         x_col = value_col
-        titre = f"{top_ou_flop} 5 par message d'alerte"
+        titre = f"{top_ou_flop} 10 par message d'alerte"
      
-        #titre = f"{top_ou_flop} 5 par {group_col.lower()} (durée en minutes)"
+        #titre = f"{top_ou_flop} 10 par {group_col.lower()} (durée en minutes)"
 
     # Graphique
     fig = px.bar(
@@ -697,13 +697,13 @@ if "df_incidents" in st.session_state:
                 (df_gab["Temps_de_disponibilite (min)"] + df_gab["Temps_d_indisponibilite (min)"])
             ) * 100
 
-            # Sélection du top 5
+            # Sélection du TOP 10 
             if top_ou_flop == "TOP":
                 df_top = df_gab.sort_values(by="Taux de disponibilité (%)", ascending=False).head(5)
-                titre = f"🔝 TOP 5 {var} ayant des taux de disponibilités élevés "
+                titre = f"🔝 TOP 10 {var} ayant des taux de disponibilités élevés "
             else:
                 df_top = df_gab.sort_values(by="Taux de disponibilité (%)", ascending=True).head(5)
-                titre = f"🔻 TOP 5 {var} ayant des taux de disponibilités faibles "
+                titre = f"🔻 TOP 10 {var} ayant des taux de disponibilités faibles "
 
             # Affichage du graphique
             fig = px.bar(
@@ -917,7 +917,7 @@ if "df_incidents" in st.session_state:
     
         with col2:
             mode_affichage = st.selectbox("Mode d'affichage", ["Valeurs absolues", "Proportions (%)"], key="mode_affichage_indispo")
-            top_flop = st.radio("Afficher :", ["TOP", "FLOP"], format_func=lambda x: "🟢 Top 5" if x == "TOP" else "🔴 Flop 5", key="choix_top_flop")
+            top_flop = st.radio("Afficher :", ["TOP", "FLOP"], format_func=lambda x: "🟢 TOP 10 " if x == "TOP" else "🔴 Flop 5", key="choix_top_flop")
 
 
     # col=st.columns(2)
@@ -1098,7 +1098,7 @@ if "df_incidents" in st.session_state:
             
                 with col2:
                     mode_affichage = st.selectbox("Mode d'affichage", ["Valeurs absolues", "Proportions (%)"], key="mode_affichage_indispo")
-                    top_flop = st.radio("Afficher :", ["TOP", "FLOP"], format_func=lambda x: "🟢 Top 5" if x == "TOP" else "🔴 Flop 5", key="choix_top_flop")
+                    top_flop = st.radio("Afficher :", ["TOP", "FLOP"], format_func=lambda x: "🟢 TOP 10 " if x == "TOP" else "🔴 Flop 5", key="choix_top_flop")
 
 
             # col=st.columns(2)
