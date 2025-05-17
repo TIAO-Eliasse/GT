@@ -275,7 +275,7 @@ def extraire_incidents(dossier_base):
 
 # Étape 1 : Charger la base
 #uploaded_file = st.file_uploader("📁 Veuillez sélectionner votre base de données (CSV ou Excel)", type=["csv", "xlsx"])
-
+import zipfile
 uploaded_zip = st.file_uploader("Veuillez importer un fichier .zip contenant un fichier .csv", type=["zip"])
 
 if uploaded_zip is not None:
