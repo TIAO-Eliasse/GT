@@ -1049,6 +1049,5 @@ if uploaded_file is not None:
                         #st.write("📊 Durée d'indisponibilité par évenement")
                     afficher_duree_indisponibilite_top(df, group_col="MESSAGE_BRUT",value_col="NB_OCCURRENCES", 
                                             mode_affichage=mode_affichage, top_ou_flop=top_flop)
-    
-    else:
+else:
         st.info("⬆️ Veuillez importer une base de données pour commencer.")
