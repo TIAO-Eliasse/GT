@@ -273,7 +273,7 @@ def extraire_incidents(dossier_base):
 #path=r'c:\Users\TIAO ELIASSE\Desktop\ISE32025\PREPARATION_GT\Document_Afriland\Données_travail\Base_incident\base_incidents.parquet'
 
 # Étape 1 : Charger la base
-uploaded_file = st.file_uploader("📁 Veuillez sélectionner votre base de données (CSV ou Excel)", type=["csv", "xlsx"])
+#uploaded_file = st.file_uploader("📁 Veuillez sélectionner votre base de données (CSV ou Excel)", type=["csv", "xlsx"])
 
 uploaded_zip = st.file_uploader("Veuillez importer un fichier .zip contenant un fichier .csv", type=["zip"])
 
@@ -295,6 +295,7 @@ if uploaded_zip is not None:
                 # Lecture du CSV dans un DataFrame
                 with z.open(nom_csv) as f:
                     df_incidents = pd.read_csv(f, encoding="utf-8", engine="python")  # adapter encodage si besoin
+                    df_incidents["ID_GAB"] = df_incidents["ID_GAB"].astype(str)
                     st.success(f"✅ Fichier '{nom_csv}' chargé avec succès !")
                
 
