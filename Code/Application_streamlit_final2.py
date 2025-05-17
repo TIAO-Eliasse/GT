@@ -298,7 +298,10 @@ if uploaded_zip is not None:
                     df_incidents = pd.read_csv(f, encoding="utf-8", engine="python")  # adapter encodage si besoin
                     df_incidents["ID_GAB"] = df_incidents["ID_GAB"].astype(str)
                     st.success(f"✅ Fichier '{nom_csv}' chargé avec succès !")
-               
+    except zipfile.BadZipFile:
+        st.error("❌ Le fichier fourni n’est pas un fichier ZIP valide.")
+    except Exception as e:
+        st.error(f"❌ Une erreur est survenue : {e}")
 
 
 #df_incidents=pd.read_csv("c://Users//TIAO ELIASSE//Desktop//ISE32025//PREPARATION_GT//Document_Afriland//Données_travail//Base_incident//base_incidents2.csv")
@@ -1070,9 +1073,6 @@ if uploaded_zip is not None:
                         #st.write("📊 Durée d'indisponibilité par évenement")
                     afficher_duree_indisponibilite_top(df, group_col="MESSAGE_BRUT",value_col="NB_OCCURRENCES", 
                                             mode_affichage=mode_affichage, top_ou_flop=top_flop)
-    except zipfile.BadZipFile:
-        st.error("❌ Le fichier fourni n’est pas un fichier ZIP valide.")
-    except Exception as e:
-        st.error(f"❌ Une erreur est survenue : {e}")
+    
 else:
     st.info("⬆️ Veuillez importer un fichier ZIP.")
