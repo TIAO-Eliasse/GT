@@ -273,12 +273,29 @@ def extraire_incidents(dossier_base):
 # Étape 1 : Charger la base
 uploaded_file = st.file_uploader("📁 Veuillez sélectionner votre base de données (CSV ou Excel)", type=["csv", "xlsx"])
 
-if uploaded_file is not None:
+uploaded_zip = st.file_uploader("Veuillez importer un fichier .zip contenant un fichier .csv", type=["zip"])
+
+if uploaded_zip is not None:
     try:
-        if uploaded_file.name.endswith(".csv"):
-            df_incidents = pd.read_csv(uploaded_file, sep=None, engine="python")
-        else:
-            df_incidents = pd.read_excel(uploaded_file)
+        with zipfile.ZipFile(uploaded_zip, "r") as z:
+            # Lister les fichiers dans l'archive
+            fichier_csv = [f for f in z.namelist() if f.endswith(".csv")]
+
+            if not fichier_csv:
+                st.error("❌ Aucun fichier CSV trouvé dans le ZIP.")
+            else:
+                # Si plusieurs fichiers CSV, permettre la sélection
+                if len(fichier_csv) > 1:
+                    nom_csv = st.selectbox("Plusieurs fichiers trouvés, choisissez-en un :", fichier_csv)
+                else:
+                    nom_csv = fichier_csv[0]
+
+                # Lecture du CSV dans un DataFrame
+                with z.open(nom_csv) as f:
+                    df_incidents = pd.read_csv(f, encoding="utf-8", engine="python")  # adapter encodage si besoin
+                    st.success(f"✅ Fichier '{nom_csv}' chargé avec succès !")
+               
+
 
 #df_incidents=pd.read_csv("c://Users//TIAO ELIASSE//Desktop//ISE32025//PREPARATION_GT//Document_Afriland//Données_travail//Base_incident//base_incidents2.csv")
 #df_incidents=charger_donnees(path)
@@ -1049,8 +1066,9 @@ if uploaded_file is not None:
                         #st.write("📊 Durée d'indisponibilité par évenement")
                     afficher_duree_indisponibilite_top(df, group_col="MESSAGE_BRUT",value_col="NB_OCCURRENCES", 
                                             mode_affichage=mode_affichage, top_ou_flop=top_flop)
+    except zipfile.BadZipFile:
+        st.error("❌ Le fichier fourni n’est pas un fichier ZIP valide.")
     except Exception as e:
-                st.error(f"❌ Une erreur est survenue : {e}")
-
+        st.error(f"❌ Une erreur est survenue : {e}")
 else:
-        st.info("⬆️ Veuillez importer une base de données pour commencer.")
+    st.info("⬆️ Veuillez importer un fichier ZIP.")
